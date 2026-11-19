@@ -1,0 +1,16 @@
+.git
+.gitignore
+.venv
+venv
+__pycache__
+*.pyc
+.env
+backend/.env
+*.db
+backend/eloquence.db
+data
+server.log
+pip_install*.log
+README.md
+Dockerfile
+.dockerignore

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eloquence — Speaking Assessment</title>
+  <link rel="stylesheet" href="/static/styles.css?v=5" />
+</head>
+<body>
+
+  <!-- AUTH -->
+  <div id="view-auth">
+    <div class="auth-wrap">
+      <div class="brand" style="justify-content:center;margin-bottom:22px;">
+        <span class="dot"></span> Eloquence <small>speaking assessment</small>
+      </div>
+      <div class="card">
+        <h2 id="auth-title">Welcome back</h2>
+        <div class="sub" id="auth-sub">Log in to continue your progress.</div>
+        <label>Username</label>
+        <input type="text" id="auth-user" autocomplete="username" />
+        <label>Password</label>
+        <input type="password" id="auth-pass" autocomplete="current-password" />
+        <button class="full" id="auth-submit">Log in</button>
+        <div class="err" id="auth-err"></div>
+        <div class="switch" id="auth-switch">
+          New here? <a id="auth-toggle">Create an account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="view-app" class="hidden">
+    <div class="topbar">
+      <div class="brand"><span class="dot"></span> Eloquence</div>
+      <div class="user">
+        <span id="who"></span>
+        <button class="ghost" id="logout">Log out</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="container" id="view-dash">
+      <div class="hero">
+        <div>
+          <h1>Ready to practice?</h1>
+          <p>A single-topic interview · 4 connected questions · scored at the end.</p>
+        </div>
+        <button id="start-btn">Start assessment</button>
+      </div>
+
+      <div id="stats-wrap" class="hidden">
+        <div class="section-title">Your averages</div>
+        <div class="stats-grid" id="stats-grid"></div>
+        <div class="section-title">Score trend</div>
+        <div class="trend"><svg id="trend-svg" viewBox="0 0 600 120" preserveAspectRatio="none"></svg></div>
+      </div>
+
+      <div class="section-title">History</div>
+      <div id="history-list"></div>
+      <div id="history-empty" class="muted">No completed assessments yet. Your progress will be tracked here.</div>
+    </div>
+
+    <!-- SETUP (before assessment) -->
+    <div class="container hidden" id="view-setup">
+      <div class="card">
+        <h2>Interview settings</h2>
+        <div class="sub">A single-topic interview: 4 connected questions, scored at the end.</div>
+
+        <label>Preparation time before each answer</label>
+        <div class="clock">
+          <div class="clock-unit">
+            <select id="prep-min-select"></select>
+            <span class="clock-lbl">min</span>
+          </div>
+          <span class="clock-colon">:</span>
+          <div class="clock-unit">
+            <select id="prep-sec-select"></select>
+            <span class="clock-lbl">sec</span>
+          </div>
+        </div>
+
+        <label>Response time per question</label>
+        <div class="clock">
+          <div class="clock-unit">
+            <select id="min-select"></select>
+            <span class="clock-lbl">min</span>
+          </div>
+          <span class="clock-colon">:</span>
+          <div class="clock-unit">
+            <select id="sec-select"></select>
+            <span class="clock-lbl">sec</span>
+          </div>
+        </div>
+        <div class="muted" style="font-size:12px;margin-top:8px;">
+          Recording auto-starts after the prep countdown — you don't press start.
+        </div>
+
+        <button class="full" id="begin-assessment">Begin interview</button>
+        <div class="err" id="setup-err"></div>
+      </div>
+    </div>
+
+    <!-- ASSESSMENT -->
+    <div class="container hidden" id="view-test">
+      <div class="topic-banner" id="topic-banner"></div>
+      <div class="progress-dots" id="dots"></div>
+      <div class="card question-card">
+        <div class="qnum" id="qnum"></div>
+        <div class="qtext" id="qtext"></div>
+
+        <div id="reading-stage" class="hidden">
+          <p class="muted">🔊 Reading the question aloud… please listen.</p>
+          <button class="ghost" id="skip-reading">Skip reading</button>
+        </div>
+
+        <div id="prep-stage" class="hidden">
+          <p class="muted">Prep time — speaking starts when this reaches zero</p>
+          <div class="timer-ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="ring-fg" id="prep-ring" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="ring-label timer" id="prep-timer">5</div>
+          </div>
+          <button class="ghost" id="skip-prep">Skip & start now</button>
+        </div>
+
+        <div id="rec-stage" class="hidden">
+          <div class="timer" id="timer">0:45</div>
+          <div class="mic" id="mic">🎙️</div>
+          <div class="live-transcript" id="live"></div>
+          <button class="danger full" id="stop-btn" style="margin-top:18px;">Stop & submit early</button>
+        </div>
+
+        <div id="scoring-stage" class="hidden center">
+          <div class="spinner"></div>
+          <p class="muted" id="scoring-text">Saving your response…</p>
+        </div>
+      </div>
+      <div class="warnbox hidden" id="speech-warn"></div>
+    </div>
+
+    <!-- REPORT (after entire test) -->
+    <div class="container hidden" id="view-report">
+      <div class="card center">
+        <h2>Interview report</h2>
+        <div class="muted" id="report-topic"></div>
+        <div class="score-big">
+          <span class="num" id="s-score"></span><span class="den">/6</span>
+          <div><span class="band" id="s-band"></span></div>
+        </div>
+        <div class="muted" style="font-size:12px;">
+          TOEFL 2026 "Take an Interview" rubric · 0–5 per criterion → 1–6 band.
+          Intelligibility is approximated from the transcript (no audio analyzed).
+        </div>
+      </div>
+
+      <div class="section-title">Per-question breakdown</div>
+      <div id="report-drawers"></div>
+
+      <div class="row" style="justify-content:center;margin-top:24px;">
+        <button class="ghost" id="to-dash">Back to dashboard</button>
+        <button id="again-btn">Start another</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js?v=5"></script>
+</body>
+</html>

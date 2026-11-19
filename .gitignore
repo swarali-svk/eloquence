@@ -1,0 +1,22 @@
+# Tooling
+.claude/
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets — never commit API keys
+.env
+backend/.env
+*.env
+
+# Local database & logs
+*.db
+backend/eloquence.db
+data/
+server.log
+pip_install*.log

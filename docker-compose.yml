@@ -1,0 +1,20 @@
+services:
+  eloquence:
+    build: .
+    image: eloquence
+    ports:
+      - "8010:8010"
+    environment:
+      # Pulled from a root-level .env file or your shell. Leave blank to use Ollama.
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - ELOQUENCE_PROVIDER=${ELOQUENCE_PROVIDER:-}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
+      # To use Ollama running on the host instead of Groq:
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+    volumes:
+      - eloquence-data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  eloquence-data:

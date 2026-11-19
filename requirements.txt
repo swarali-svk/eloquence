@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+langgraph
+requests
+pydantic>=2.11
+python-multipart
