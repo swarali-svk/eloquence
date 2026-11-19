@@ -1,6 +1,6 @@
 # Eloquence – AI-Powered Speaking Assessment Platform
 
-Eloquence is a voice-based speaking assessment and improvement platform inspired by the TOEFL independent-speaking format. Users can log in, complete four spoken questions (45 seconds per response), and receive dimension-wise scores, examiner-style feedback, and an application-defined TOEFL-style performance band.
+Eloquence is a voice-based speaking assessment and improvement platform inspired by the TOEFL independent-speaking format. Users can log in, complete four spoken questions (for custom time), and receive dimension-wise scores, examiner-style feedback, and an application-defined TOEFL-style performance band.
 
 Built using **Python, FastAPI, LangGraph, Groq GPT-OSS-120B, SQLite, and Ollama**, Eloquence combines browser-based voice interaction with parallel LLM-based evaluation and progress tracking across practice assessments.
 
