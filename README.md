@@ -2,7 +2,7 @@
 
 A local voice-based speaking-assessment app in the style of a TOEFL independent-speaking test.
 Log in, answer four spoken questions (45 seconds each), and get a per-dimension score and
-TOEFL-style band with examiner reasoning — all evaluated by a **local Ollama** model. Your
+TOEFL-style band with examiner reasoning — all evaluated by a **GROQ** model. Your
 progress is tracked across unlimited assessments.
 
 ## How it works
@@ -11,7 +11,7 @@ progress is tracked across unlimited assessments.
 Browser (login + mic via Web Speech API)
     │  question read aloud (TTS) → you speak 45s → transcript
     ▼
-FastAPI  ──►  LangGraph scoring pipeline  ──►  Ollama (qwen2.5)
+FastAPI  ──►  LangGraph scoring pipeline  ──►  GROQ/FALLBACK - OLLAMA 
     │              START ┬─ grammar ──┐
     │                    ├─ ideation ─┤
 SQLite              (parallel) flow   ┼─ aggregate ─► band + reasoning
